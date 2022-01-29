@@ -9,12 +9,37 @@ body {
     overflow-x: hidden; /*스크롤을 만들지 않을 것임 */
     color : rgb(29,29,31);
     letter-spacing: -0.05em; /*자간 설정*/
-    background: white;
+    background: rgba(82, 192, 226, 1);
+}
+
+.infoboard{
+    position: fixed;
+    width: 100%;
+    height: 20px;
+    z-index: 10;
+}
+
+.infoboardcontents{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.beach{
+    width: 100%;
+    height: 15vh;
+    background-color: rgba(224, 205, 154, 1);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
 }
 
 .slider{
-    width : 10%;
-    height : 100px;
+    width: 10%;
+    height: 100px;
     background-color: rgb(29,29,31);
     position: fixed;
     top: 50%;
@@ -23,7 +48,7 @@ body {
 }
 
 .floor{
-    width : 30%;
+    width: 30%;
     height: 2000px;
     background-color: gray;
     margin: 0 auto;
@@ -32,6 +57,4 @@ body {
 .droparea{
     width: 100%;
     height: 1000px;
-    background-color: white;
-
 }
