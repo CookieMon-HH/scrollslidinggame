@@ -38,18 +38,18 @@ body {
 }
 
 .slider{
-    width: 10%;
-    height: 100px;
+    width: 20%;
+    height: 10vh;
     background-color: rgb(29,29,31);
     position: fixed;
-    top: 50%;
-    left: 45%;
-
+    top: 15%;
+    left: 40%;
+    z-index: 3;
 }
 
 .floor{
     width: 30%;
-    height: 2000px;
+    height: 350vh;
     background-color: gray;
     margin: 0 auto;
 }
