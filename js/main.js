@@ -8,16 +8,25 @@
     const sceneInfo = [
         {
             //0
-            heightNum: 1, 
+            type: 'beach',
+            heightNum: 0.15, 
             scrollHeight: 0
         },
         {
             //1
-            heightNum: 2, 
+            type: 'floor',
+            heightNum: 1, 
             scrollHeight: 0
         },
         {
             //2
+            type: 'floor',
+            heightNum: 4, 
+            scrollHeight: 0
+        },
+        {
+            //3
+            type: 'droparea',
             heightNum: 1, 
             scrollHeight: 0,
             }  
@@ -41,7 +50,26 @@
                 break;
             }
 
-        } 
+        }    
+        //beach, floor, drop area 길이 지정 
+        let beachlenNum = 0;
+        let floorlenNum = 0;
+        let droplenNum = 0;
+        for(let i=0; i < sceneInfo.length ; i++){
+            if (sceneInfo[i].type == 'beach') {
+                beachlenNum += sceneInfo[i].heightNum;
+            }
+            if (sceneInfo[i].type == 'floor') {
+                floorlenNum += sceneInfo[i].heightNum;
+            }
+            if (sceneInfo[i].type == 'droparea') {
+                droplenNum += sceneInfo[i].heightNum;
+            }
+        }
+        document.querySelector('.beach').style.height = `${beachlenNum*100}vh`;
+        document.querySelector('.floor').style.height = `${floorlenNum*100}vh`;
+        document.querySelector('.droparea').style.height = `${droplenNum*100}vh`;
+
     }
 
     function calcValues (values, currentYOffest) {
@@ -55,15 +83,26 @@
     //slider의 동작 컨트롤 
     function slidermove(){
         const currentYOffest = yOffset - prevScrollHeight;
+        let sliderdisp = 0;
 
         if (currentScene == 0) {
-            let sliderdisp = calcValues([15,50], currentYOffest);
-            document.querySelector('.slider').style.top = `${sliderdisp}%`;
+            sliderdisp = sceneInfo[0].heightNum;
+        }else if (currentScene == 1) {
+            sliderdisp = calcValues([sceneInfo[0].heightNum,0.5], currentYOffest);
+        }else {
+            sliderdisp = 0.5;
         }
-        else {
-            document.querySelector('.slider').style.top = '50%';
-        }
+        document.querySelector('.slider').style.top = `${sliderdisp*100}vh`;
+        return sliderdisp
+    }
 
+    //slider 거리 계산 1vh = 20m
+    function clacdistance(){
+        let distratio = yOffset / window.innerHeight + (slidermove() - sceneInfo[0].heightNum);
+        let distance = Math.round((distratio * 20)*10)/10;
+        console.log(distance);
+        // console.log(currentScene,yOffset / window.innerHeight, slidermove(), sceneInfo[0].heightNum);
+        document.getElementById('distance').innerHTML= `distacne : ${distance}`;
     }
 
     function scrollLoop() {
@@ -93,6 +132,7 @@
         //장면이 전환되는 시점에는 palyanimation을 실행하지 않도록 처리
 
         slidermove();
+        clacdistance();
     }
 
     window.addEventListener('scroll', () => {
