@@ -4,6 +4,7 @@
     let prevScrollHeight = 0; //현재 스크롤 위치 보다 이전에 위치한 스크롤 섹션들의 스크롤 높이의 합
     let currentScene = 0; //현재 활성화 된 씬 (scroll-section)
     let enterNewScene = false; //새로운 scene이 시작된 순간 true
+    let windowsize = 0;
 
     const sceneInfo = [
         {
@@ -34,6 +35,8 @@
 
     function setLayout() {
         //각 스크룔 섹션의 높이 세팅
+        windowsize = window.innerHeight;
+
         for (let i=0; i<sceneInfo.length; i++) {
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
             //html파일 section에 style="height: ##px;" 추가하면 해당 section의 높이가 됨 
@@ -98,7 +101,7 @@
 
     //slider 거리 계산 1vh = 20m
     function clacdistance(){
-        let distratio = yOffset / window.innerHeight + (slidermove() - sceneInfo[0].heightNum);
+        let distratio = yOffset / windowsize + (slidermove() - sceneInfo[0].heightNum);
         let distance = Math.round((distratio * 20)*10)/10;
         console.log(distance);
         // console.log(currentScene,yOffset / window.innerHeight, slidermove(), sceneInfo[0].heightNum);
