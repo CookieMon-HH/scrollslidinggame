@@ -12,26 +12,59 @@
             type: 'beach',
             heightNum: 0.15, 
             scrollHeight: 0
+            // objs: {
+            // },
+            // values: {
+            // }
         },
         {
             //1
             type: 'floor',
             heightNum: 1, 
             scrollHeight: 0
+            // objs: {
+            // },
+            // values: {
+            // }
         },
         {
             //2
             type: 'floor',
             heightNum: 4, 
             scrollHeight: 0
+            // objs: {
+            // },
+            // values: {
+            // }
         },
         {
             //3
             type: 'droparea',
-            heightNum: 1, 
+            heightNum: 3, 
             scrollHeight: 0,
-            }  
+            objs: {
+                canvas: document.querySelector('.shark'),
+                context: document.querySelector('.shark').getContext('2d'),
+                videoImages: []
+            },
+            values: {
+                videoImageCount: 25,
+                imageSequence: [0,24]
+            }
+        }  
     ];
+
+    function setCanvasImages(){
+        let imgElem;
+        for(let i=0; i < sceneInfo[3].values.videoImageCount; i++){
+            imgElem = new Image();  
+            imgElem.src = `./images/shark/shark_${i}.PNG`;
+            // imgElem.src = `./images/shark_0.JPG`;
+            sceneInfo[3].objs.videoImages.push(imgElem);
+        }
+    }
+    setCanvasImages();
+
 
     function setLayout() {
         //각 스크룔 섹션의 높이 세팅
@@ -72,6 +105,7 @@
         document.querySelector('.beach').style.height = `${beachlenNum*100}vh`;
         document.querySelector('.floor').style.height = `${floorlenNum*100}vh`;
         document.querySelector('.droparea').style.height = `${droplenNum*100}vh`;
+        document.querySelector('.shark').style.height = `50vh`;
 
     }
 
@@ -84,6 +118,7 @@
     }
 
     //slider의 동작 컨트롤 
+
     function slidermove(){
         const currentYOffest = yOffset - prevScrollHeight;
         let sliderdisp = 0;
@@ -103,10 +138,39 @@
     function clacdistance(){
         let distratio = yOffset / windowsize + (slidermove() - sceneInfo[0].heightNum);
         let distance = Math.round((distratio * 20)*10)/10;
-        console.log(distance);
+        // console.log(yOffset / windowsize, slidermove(),sceneInfo[0].heightNum );
         // console.log(currentScene,yOffset / window.innerHeight, slidermove(), sceneInfo[0].heightNum);
         document.getElementById('distance').innerHTML= `distacne : ${distance}`;
     }
+
+    function playAnimation(){
+        const objs = sceneInfo[currentScene].objs;
+        const values = sceneInfo[currentScene].values;
+        const currentYOffset = yOffset - prevScrollHeight;
+        const scrollHeight = sceneInfo[currentScene].scrollHeight;
+        const scrollRatio = currentYOffset / scrollHeight;
+        console.log(scrollRatio);
+
+        if(currentScene ==3 ) {
+            objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+            let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
+            // objs.context.drawImage(objs.videoImages[sequence],0,0,window.innerWidth,window.innerHeight*0.5);
+            objs.context.drawImage(objs.videoImages[sequence],0,0,480,360,0,0,objs.canvas.width, objs.canvas.height);
+        }else{
+            sceneInfo[3].objs.context.clearRect(0, 0, sceneInfo[3].objs.canvas.width, sceneInfo[3].objs.canvas.height);
+        }
+
+        // switch(currentScene) {
+        //     case 3:
+        //         objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+        //         let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
+        //         objs.context.drawImage(objs.videoImages[sequence],0,0,window.innerWidth,window.innerHeight*0.5);
+        //         break;
+        //     case !3:
+        //         objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+        // }
+    }
+
 
     function scrollLoop() {
         //현재 scene을 0으로 시작하고 스크롤할 때 마다 scene 변경 조건을 확인해서 증가시키거나 감소시키는듯 
@@ -134,9 +198,13 @@
         if(enterNewScene == true)  return; 
         //장면이 전환되는 시점에는 palyanimation을 실행하지 않도록 처리
 
+        console.log(currentScene);
+
         slidermove();
         clacdistance();
+        playAnimation();
     }
+
 
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset;
