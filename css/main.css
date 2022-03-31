@@ -40,7 +40,7 @@ body {
 .slider{
     width: 20%;
     height: 10vh;
-    background-color: rgb(29,29,31);
+    /* background-color: rgb(29,29,31); */
     position: fixed;
     top: 15vh;
     left: 40%;

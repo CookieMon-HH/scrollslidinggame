@@ -36,7 +36,8 @@
                 canvas: document.querySelector('.shark'),
                 context: document.querySelector('.shark').getContext('2d'),
                 imagesPath: [
-                    `./images/shark/shark_underthesea.png`
+                    `./images/shark/shark_underthesea.png`,
+                    `./images/slider/slider.png`
                 ],
                 videoImages: [],
                 images: []
@@ -69,6 +70,7 @@
             imgElem2.src = sceneInfo[2].objs.imagesPath[i];
             sceneInfo[2].objs.images.push(imgElem2);
         }
+        
     }
     setCanvasImages();
 
@@ -109,11 +111,18 @@
                 droplenNum += sceneInfo[i].heightNum;
             }
         }
+                
         document.querySelector('.beach').style.height = `${beachlenNum*100}vh`;
         document.querySelector('.floor').style.height = `${floorlenNum*100}vh`;
         document.querySelector('.droparea').style.height = `${droplenNum*100}vh`;
         document.querySelector('.shark').style.height = `10vh`;
         document.querySelector('.shark').style.width = `10vw`;
+
+        //slider 이미지 바로 적용
+        let slider_canvas = document.querySelector('.slider')
+        let slider_context = document.querySelector('.slider').getContext('2d');
+        slider_context.drawImage(sceneInfo[2].objs.images[1],0,0,50,46,0,0,slider_canvas.width,slider_canvas.height);
+        console.log('img setting');
 
     }
 
