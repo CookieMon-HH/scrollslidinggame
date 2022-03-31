@@ -30,7 +30,7 @@
         {
             //2
             type: 'floor',
-            heightNum: 4, 
+            heightNum: 4.15, 
             scrollHeight: 0,
             objs: {
                 canvas: document.querySelector('.shark'),
@@ -43,8 +43,8 @@
             },
             values: {
                 videoImageCount: 25,
-                imageSequence: [0,24,{start: 0.7, end: 0.9}],
-                canvasSize_jump: [10,50,{start: 0.7, end: 0.9}]
+                imageSequence: [0,24,{start: 0.7, end: 0.905}],
+                canvasSize_jump: [10,50,{start: 0.7, end: 0.905}]
             }
         },
         {
@@ -162,9 +162,8 @@
     //slider 거리 계산 1vh = 20m
     function clacdistance(){
         let distratio = yOffset / windowsize + (slidermove() - sceneInfo[0].heightNum);
+        // console.log(yOffset,windowsize,slidermove(),sceneInfo[0].heightNum);
         let distance = Math.round((distratio * 20)*10)/10;
-        // console.log(yOffset / windowsize, slidermove(),sceneInfo[0].heightNum );
-        // console.log(currentScene,yOffset / window.innerHeight, slidermove(), sceneInfo[0].heightNum);
         document.getElementById('distance').innerHTML= `distacne : ${distance}`;
     }
 
@@ -174,7 +173,7 @@
         const currentYOffset = yOffset - prevScrollHeight;
         const scrollHeight = sceneInfo[currentScene].scrollHeight;
         const scrollRatio = currentYOffset / scrollHeight;
-        console.log(scrollRatio);
+        // console.log(scrollRatio);
 
         if(currentScene ==2 ) {
             if(scrollRatio >= 0.3 && scrollRatio < values.imageSequence[2].start ){
@@ -192,7 +191,7 @@
             }else{
                 sceneInfo[2].objs.context.clearRect(0, 0, sceneInfo[2].objs.canvas.width, sceneInfo[2].objs.canvas.height);    
             }
-            if(scrollRatio >= 0.84){
+            if(scrollRatio >= 0.843){
                 document.querySelector('.slider').style.opacity = `0`;
             }else{
                 document.querySelector('.slider').style.opacity = `1`;
@@ -240,7 +239,7 @@
         if(enterNewScene == true)  return; 
         //장면이 전환되는 시점에는 palyanimation을 실행하지 않도록 처리
 
-        console.log(currentScene);
+        // console.log(currentScene);
 
         slidermove();
         clacdistance();
