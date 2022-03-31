@@ -36,7 +36,7 @@
                 canvas: document.querySelector('.shark'),
                 context: document.querySelector('.shark').getContext('2d'),
                 imagesPath: [
-                    `./images/shark/shark_underthesea.PNG`
+                    `./images/shark/shark_underthesea.png`
                 ],
                 videoImages: [],
                 images: []
@@ -59,7 +59,7 @@
         let imgElem;
         for(let i=0; i < sceneInfo[2].values.videoImageCount; i++){
             imgElem = new Image();  
-            imgElem.src = `./images/shark/shark_${i}.PNG`;
+            imgElem.src = `./images/shark/shark_${i}.png`;
             // imgElem.src = `./images/shark_0.JPG`;
             sceneInfo[2].objs.videoImages.push(imgElem);
         }
