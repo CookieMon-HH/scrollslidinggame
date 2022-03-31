@@ -31,36 +31,43 @@
             //2
             type: 'floor',
             heightNum: 4, 
-            scrollHeight: 0
-            // objs: {
-            // },
-            // values: {
-            // }
-        },
-        {
-            //3
-            type: 'droparea',
-            heightNum: 3, 
             scrollHeight: 0,
             objs: {
                 canvas: document.querySelector('.shark'),
                 context: document.querySelector('.shark').getContext('2d'),
-                videoImages: []
+                imagesPath: [
+                    `./images/shark/shark_underthesea.PNG`
+                ],
+                videoImages: [],
+                images: []
             },
             values: {
                 videoImageCount: 25,
-                imageSequence: [0,24]
+                imageSequence: [0,24,{start: 0.7, end: 0.9}],
+                canvasSize_jump: [10,50,{start: 0.7, end: 0.9}]
             }
+        },
+        {
+            //3
+            type: 'droparea',
+            heightNum: 1, 
+            scrollHeight: 0
         }  
     ];
 
     function setCanvasImages(){
         let imgElem;
-        for(let i=0; i < sceneInfo[3].values.videoImageCount; i++){
+        for(let i=0; i < sceneInfo[2].values.videoImageCount; i++){
             imgElem = new Image();  
             imgElem.src = `./images/shark/shark_${i}.PNG`;
             // imgElem.src = `./images/shark_0.JPG`;
-            sceneInfo[3].objs.videoImages.push(imgElem);
+            sceneInfo[2].objs.videoImages.push(imgElem);
+        }
+        let imgElem2;
+        for (let i = 0; i< sceneInfo[2].objs.imagesPath.length; i++){
+            imgElem2 = new Image();  
+            imgElem2.src = sceneInfo[2].objs.imagesPath[i];
+            sceneInfo[2].objs.images.push(imgElem2);
         }
     }
     setCanvasImages();
@@ -105,28 +112,46 @@
         document.querySelector('.beach').style.height = `${beachlenNum*100}vh`;
         document.querySelector('.floor').style.height = `${floorlenNum*100}vh`;
         document.querySelector('.droparea').style.height = `${droplenNum*100}vh`;
-        document.querySelector('.shark').style.height = `50vh`;
+        document.querySelector('.shark').style.height = `10vh`;
+        document.querySelector('.shark').style.width = `10vw`;
 
     }
 
-    function calcValues (values, currentYOffest) {
+    function calcValues (values, currentYOffset) {
         let rv;
         //현재 씬에서 스크롤된 범위를 비율로 구하기
-        let scrollRatio = currentYOffest / sceneInfo[currentScene].scrollHeight; 
-        rv = scrollRatio * (values[1]-values[0]) + values[0];
+        const scrollHeight = sceneInfo[currentScene].scrollHeight;
+        const scrollRatio = currentYOffset / sceneInfo[currentScene].scrollHeight;
+        
+        if (values.length == 3) {
+            //start~end 사이의 애니메이션 실행
+            const partScrollStart = values[2].start * scrollHeight;
+            const partScrollEnd = values[2].end * scrollHeight;
+            const partScrollHeight = partScrollEnd-partScrollStart;
+
+            if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd){
+                rv = (currentYOffset - partScrollStart) / partScrollHeight * (values[1]-values[0]) + values[0]; 
+            }else if (currentYOffset < partScrollStart){
+                rv = values[0];
+            }else if (currentYOffset > partScrollEnd){
+                rv = values[1];
+            }
+        }else{ 
+            rv = scrollRatio * (values[1]-values[0]) + values[0];
+        }
         return rv
     }
 
     //slider의 동작 컨트롤 
 
     function slidermove(){
-        const currentYOffest = yOffset - prevScrollHeight;
+        const currentYOffset = yOffset - prevScrollHeight;
         let sliderdisp = 0;
 
         if (currentScene == 0) {
             sliderdisp = sceneInfo[0].heightNum;
         }else if (currentScene == 1) {
-            sliderdisp = calcValues([sceneInfo[0].heightNum,0.5], currentYOffest);
+            sliderdisp = calcValues([sceneInfo[0].heightNum,0.5], currentYOffset);
         }else {
             sliderdisp = 0.5;
         }
@@ -151,13 +176,30 @@
         const scrollRatio = currentYOffset / scrollHeight;
         console.log(scrollRatio);
 
-        if(currentScene ==3 ) {
-            objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-            let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
-            // objs.context.drawImage(objs.videoImages[sequence],0,0,window.innerWidth,window.innerHeight*0.5);
-            objs.context.drawImage(objs.videoImages[sequence],0,0,480,360,0,0,objs.canvas.width, objs.canvas.height);
-        }else{
-            sceneInfo[3].objs.context.clearRect(0, 0, sceneInfo[3].objs.canvas.width, sceneInfo[3].objs.canvas.height);
+        if(currentScene ==2 ) {
+            if(scrollRatio >= 0.3 && scrollRatio < values.imageSequence[2].start ){
+                objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+                objs.context.drawImage(objs.images[0],0,0,48,36,0,0,objs.canvas.width, objs.canvas.height);
+                objs.canvas.style.height = `${calcValues(values.canvasSize_jump, currentYOffset)}vh`;
+                objs.canvas.style.width = `${calcValues(values.canvasSize_jump, currentYOffset)*2}vw`;
+            }else if(scrollRatio >= values.imageSequence[2].start){
+                objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+                let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
+                objs.canvas.style.height = `${calcValues(values.canvasSize_jump, currentYOffset)}vh`;
+                objs.canvas.style.width = `${calcValues(values.canvasSize_jump, currentYOffset)*2}vw`;
+                
+                objs.context.drawImage(objs.videoImages[sequence],0,0,480,360,0,0,objs.canvas.width, objs.canvas.height);
+            }else{
+                sceneInfo[2].objs.context.clearRect(0, 0, sceneInfo[2].objs.canvas.width, sceneInfo[2].objs.canvas.height);    
+            }
+            if(scrollRatio >= 0.84){
+                document.querySelector('.slider').style.opacity = `0`;
+            }else{
+                document.querySelector('.slider').style.opacity = `1`;
+            }
+
+        }else if(currentScene < 2){
+            sceneInfo[2].objs.context.clearRect(0, 0, sceneInfo[2].objs.canvas.width, sceneInfo[2].objs.canvas.height);
         }
 
         // switch(currentScene) {

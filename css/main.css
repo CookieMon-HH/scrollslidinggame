@@ -44,7 +44,7 @@ body {
     position: fixed;
     top: 15vh;
     left: 40%;
-    z-index: 3;
+    z-index: 5;
 }
 
 .floor{
@@ -53,6 +53,7 @@ body {
     background-color: gray;
     margin: 0 auto;
     top: 15vh;
+    z-index: 4;
 }
 
 .droparea{
@@ -63,6 +64,9 @@ body {
 .shark{
     position: fixed;
     width: 100%;
-    bottom: 0;
-    background-color: white;
+    top: 25vh;
+    left: 0vh;
+    /* background-color: white; */
+    z-index: 2;
 }
+
