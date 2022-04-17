@@ -79,6 +79,9 @@
         //각 스크룔 섹션의 높이 세팅
         // windowsize = window.innerHeight;
         windowsize = document.documentElement.clientHeight;
+        document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight}`;
+        console.log(window.innerHeight,document.documentElement.clientHeight);
+        
 
         for (let i=0; i<sceneInfo.length; i++) {
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
