@@ -77,8 +77,8 @@
 
     function setLayout() {
         //각 스크룔 섹션의 높이 세팅
-        // windowsize = window.innerHeight;
-        windowsize = document.documentElement.clientHeight;
+        windowsize = window.innerHeight;
+        // windowsize = document.documentElement.clientHeight;
         document.getElementById('console').innerHTML= `setlayout : ${window.innerHeight} ${document.documentElement.clientHeight}`;
         console.log(window.innerHeight,document.documentElement.clientHeight);
         
@@ -177,7 +177,7 @@
         // console.log(yOffset,windowsize,slidermove(),sceneInfo[0].heightNum);
         let distance = Math.round((distratio * 20)*10)/10;
         document.getElementById('distance').innerHTML= `distacne : ${distance}`;
-        document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight}`;
+        document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight} ${window.pageYOffset}`;
     }
 
     function playAnimation(){
