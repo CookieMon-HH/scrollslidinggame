@@ -79,7 +79,7 @@
         //각 스크룔 섹션의 높이 세팅
         // windowsize = window.innerHeight;
         windowsize = document.documentElement.clientHeight;
-        document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight}`;
+        document.getElementById('console').innerHTML= `console : ${window.innerHeight}`;
         console.log(window.innerHeight,document.documentElement.clientHeight);
         
 
