@@ -77,12 +77,13 @@
 
     function setLayout() {
         //각 스크룔 섹션의 높이 세팅
-        windowsize = window.innerHeight;
+        // windowsize = window.innerHeight;
         // windowsize = document.documentElement.clientHeight;
-        document.getElementById('console').innerHTML= `setlayout : ${window.innerHeight} ${document.documentElement.clientHeight}`;
-        console.log(window.innerHeight,document.documentElement.clientHeight);
+        slider_height = document.querySelector('.slider').clientHeight;
+        windowsize = slider_height /10 * 100 ;
+        document.getElementById('console').innerHTML= `setlayout : ${windowsize} `;
+        console.log(windowsize);
         
-
         for (let i=0; i<sceneInfo.length; i++) {
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
             //html파일 section에 style="height: ##px;" 추가하면 해당 section의 높이가 됨 
@@ -177,7 +178,7 @@
         // console.log(yOffset,windowsize,slidermove(),sceneInfo[0].heightNum);
         let distance = Math.round((distratio * 20)*10)/10;
         document.getElementById('distance').innerHTML= `distacne : ${distance}`;
-        document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight} ${window.pageYOffset}`;
+        // document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight} ${window.pageYOffset}`;
     }
 
     function playAnimation(){
