@@ -79,9 +79,10 @@
         //각 스크룔 섹션의 높이 세팅
         // windowsize = window.innerHeight;
         // windowsize = document.documentElement.clientHeight;
+        // 모바일 브라우저 url 바 인식 문제로 1vh의 픽셀을 구해서 적용 (vh는 url바 고려하지 않은 전체 사이즈)
         slider_height = document.querySelector('.slider').clientHeight;
         windowsize = slider_height /10 * 100 ;
-        document.getElementById('console').innerHTML= `setlayout : ${windowsize} `;
+        // document.getElementById('console').innerHTML= `setlayout : ${windowsize} `;
         console.log(windowsize);
         
         for (let i=0; i<sceneInfo.length; i++) {
@@ -265,6 +266,7 @@
         yOffset = window.pageYOffset;
         scrollLoop()
         // console.log(currentScene);
+        document.getElementById('console').innerHTML= `scroll : ${window.pageYOffset} `;
     });
     
     window.addEventListener('load', setLayout);
