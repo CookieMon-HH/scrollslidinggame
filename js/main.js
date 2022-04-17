@@ -77,7 +77,8 @@
 
     function setLayout() {
         //각 스크룔 섹션의 높이 세팅
-        windowsize = window.innerHeight;
+        // windowsize = window.innerHeight;
+        windowsize = document.documentElement.clientHeight;
 
         for (let i=0; i<sceneInfo.length; i++) {
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
@@ -122,8 +123,7 @@
         let slider_canvas = document.querySelector('.slider')
         let slider_context = document.querySelector('.slider').getContext('2d');
         slider_context.drawImage(sceneInfo[2].objs.images[1],0,0,50,46,0,0,slider_canvas.width,slider_canvas.height);
-        console.log('img setting');
-
+        // console.log('img setting');
     }
 
     function calcValues (values, currentYOffset) {
