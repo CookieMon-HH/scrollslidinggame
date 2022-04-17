@@ -85,7 +85,7 @@
         console.log(windowsize);
         
         for (let i=0; i<sceneInfo.length; i++) {
-            sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
+            sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * windowsize;
             //html파일 section에 style="height: ##px;" 추가하면 해당 section의 높이가 됨 
         }
 
