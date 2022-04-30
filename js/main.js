@@ -266,8 +266,44 @@
         yOffset = window.pageYOffset;
         scrollLoop()
         // console.log(currentScene);
-        document.getElementById('console').innerHTML= `scroll : ${window.pageYOffset} `;
+        // document.getElementById('console').innerHTML= `scroll : ${window.pageYOffset} `;
+        //이때 증감을 봐서 끝났는지 확인하자!
     });
+
+    // window.addEventListener('touchstart', document.getElementById('.body').innerHTML= `touchstart`);
+    // window.addEventListener('touchmove', document.getElementById('console').innerHTML= `touchmove`);
+    // window.addEventListener('touchend', document.getElementById('console').innerHTML= `touchend`);
+
+
+
+    window.addEventListener('touchstart',() => {
+        console.log('touchstart');
+        window.addEventListener('touchmove',() => {
+            console.log('touchmove');
+        });
+        window.addEventListener('touchend',() => {
+            console.log('touchend');
+            document.querySelector('body').style.touchAction = `none`;
+
+        });
+    } );
+    // 터치 on
+    // 드래그
+    // 스크롤 시작 (증/감 가능)
+    // 터치 off
+    // -> 터치 막아야 됨
+    // 스크롤 진행 
+    // offset 증가 (예외로 감소할 수도 있음) 
+    // offset 증가 또는 감소 
+    // offset 증가 또는 감소 멈춤 
+    // 게임 종료
+    // pop up 
+    
+    
+    // 터치 막기 
+    // https://gahyun-web-diary.tistory.com/129
+
+
     
     window.addEventListener('load', setLayout);
     window.addEventListener('resize', setLayout);
