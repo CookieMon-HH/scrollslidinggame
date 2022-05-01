@@ -294,9 +294,10 @@
 
     setInterval(()=>{
         if(gamestate == 'sliding'){
-            if(yOffset != window.pageYOffset){
+            if(yOffset = window.pageYOffset){
                 gamestate = 'end'
                 console.log(gamestate);
+                document.getElementById('console').innerHTML= `console : ${gamestate}`;
             }   
         }
     },1000);
