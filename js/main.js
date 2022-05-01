@@ -5,6 +5,7 @@
     let currentScene = 0; //현재 활성화 된 씬 (scroll-section)
     let enterNewScene = false; //새로운 scene이 시작된 순간 true
     let windowsize = 0;
+    let gamestate = 'before_play'   //beforeplay, touching, sliding, end
 
     const sceneInfo = [
         {
@@ -264,6 +265,7 @@
 
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset;
+        console.log(yOffset);
         scrollLoop()
         // console.log(currentScene);
         // document.getElementById('console').innerHTML= `scroll : ${window.pageYOffset} `;
@@ -277,16 +279,38 @@
 
 
     window.addEventListener('touchstart',() => {
-        console.log('touchstart');
+        gamestate = 'touching';
+        console.log(gamestate);
         window.addEventListener('touchmove',() => {
-            console.log('touchmove');
+            // console.log('touchmove');
+            gamestate = 'touching';
         });
         window.addEventListener('touchend',() => {
-            console.log('touchend');
+            gamestate = 'sliding';
+            console.log(gamestate);
             document.querySelector('body').style.touchAction = `none`;
-
         });
     } );
+
+    setInterval(()=>{
+        if(gamestate == 'sliding'){
+            if(yOffset != window.pageYOffset){
+                gamestate = 'end'
+                console.log(gamestate);
+            }   
+        }
+    },1000);
+
+    //gamestate == before_playing : scrollloop... (안전빵)
+    //gamestate == touching : scrollloop... 
+    //gamestate == sliding : scrollloop & setinterval 
+    //gamestate == end : opup
+    //setinterval을 따로 빼고 state에 따라 동작하게 하자!
+
+    // 터치 이벤트가 end가 되면 set interval로 상태를 확인한다. 
+    // 게임 state가 end가 될 때 까지 set interval을 실행하고 더이상 yoffset의 변화가 없으면 game state를 end로 바꿔준다. 
+    // restart 이후에는 game state를 초기화해준다.
+
     // 터치 on
     // 드래그
     // 스크롤 시작 (증/감 가능)
