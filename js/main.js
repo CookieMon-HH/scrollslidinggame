@@ -267,6 +267,7 @@
         yOffset = window.pageYOffset;
         console.log(yOffset);
         scrollLoop()
+        // isScrolling();
         // console.log(currentScene);
         // document.getElementById('console').innerHTML= `scroll : ${window.pageYOffset} `;
         //이때 증감을 봐서 끝났는지 확인하자!
@@ -292,15 +293,34 @@
         });
     } );
 
+    function isScrolling() {
+        var scrollStart = window.scrollTop;
+        setTimeout(function() {
+            var scrollPos = window.scrollTop;
+            if (scrollStart !== scrollPos) {
+            this.isScrolling()
+            console.log('scolling');
+        } else {
+            // Scrolling has stopped
+            console.log('scrollstop');
+            gamestate = 'end';
+            document.getElementById('console').innerHTML= `console : ${gamestate}`;
+        }
+        }, 100)
+    };
+    
+
     setInterval(()=>{
+        // console.log(window.onscroll);
         if(gamestate == 'sliding'){
+            isScrolling();
             if(yOffset = window.pageYOffset){
-                gamestate = 'end'
-                console.log(gamestate);
-                document.getElementById('console').innerHTML= `console : ${gamestate}`;
+                // gamestate = 'end'
+                // console.log(gamestate);
+                // document.getElementById('console').innerHTML= `console : ${gamestate}`;
             }   
         }
-    },1000);
+    },100);
 
     //gamestate == before_playing : scrollloop... (안전빵)
     //gamestate == touching : scrollloop... 
