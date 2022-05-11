@@ -6,6 +6,7 @@
     let enterNewScene = false; //새로운 scene이 시작된 순간 true
     let windowsize = 0;
     let gamestate = 'before_play'   //beforeplay, touching, sliding, end
+    let slidingYoffset = 0;
 
     const sceneInfo = [
         {
@@ -181,6 +182,7 @@
         let distance = Math.round((distratio * 20)*10)/10;
         document.getElementById('distance').innerHTML= `distacne : ${distance}`;
         // document.getElementById('console').innerHTML= `console : ${window.innerHeight} ${document.documentElement.clientHeight} ${window.pageYOffset}`;
+        return distance
     }
 
     function playAnimation(){
@@ -293,34 +295,26 @@
         });
     } );
 
-    function isScrolling() {
-        var scrollStart = window.scrollTop;
-        setTimeout(function() {
-            var scrollPos = window.scrollTop;
-            if (scrollStart !== scrollPos) {
-            this.isScrolling()
-            console.log('scolling');
-        } else {
-            // Scrolling has stopped
-            console.log('scrollstop');
-            gamestate = 'end';
-            document.getElementById('console').innerHTML= `console : ${gamestate}`;
-        }
-        }, 100)
-    };
-    
-
     setInterval(()=>{
         // console.log(window.onscroll);
+        let currentSlidingYoffset = window.pageYOffset;
         if(gamestate == 'sliding'){
-            isScrolling();
-            if(yOffset = window.pageYOffset){
-                // gamestate = 'end'
-                // console.log(gamestate);
-                // document.getElementById('console').innerHTML= `console : ${gamestate}`;
-            }   
+            if(slidingYoffset == currentSlidingYoffset){
+                gamestate = 'end'
+                document.getElementById('console').innerHTML= `console : ${gamestate}`;
+                document.getElementById('endmodal').style.display = 'flex';
+                document.getElementById('result').innerHTML= `your score is ${clacdistance()}`;
+
+            }else {
+                slidingYoffset = currentSlidingYoffset ;
+            }
         }
-    },100);
+    },500);
+
+    document.getElementById('restart').addEventListener('click', ()=> {
+        window.scrollTo(0,0);
+        window.location.reload();
+    })
 
     //gamestate == before_playing : scrollloop... (안전빵)
     //gamestate == touching : scrollloop... 
