@@ -312,8 +312,8 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        window.scrollTo(0,0);
         window.location.reload();
+        window.scrollTo(0,0);
     })
 
     //gamestate == before_playing : scrollloop... (안전빵)

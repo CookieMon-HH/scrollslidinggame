@@ -9,7 +9,9 @@ body {
     overflow-x: hidden; /*스크롤을 만들지 않을 것임 */
     color : rgb(29,29,31);
     letter-spacing: -0.05em; /*자간 설정*/
-    background: rgba(82, 192, 226, 1);
+    background-image: url('../images/background/sea.png');
+    background-size: 100% 100%;
+    /* background: rgba(82, 192, 226, 1); */
 }
 
 .infoboard{
@@ -30,6 +32,8 @@ body {
 .beach{
     width: 100%;
     /* height: 15vh; */
+    background-image: url('../images/background/beach.png');
+    background-size: 100% 100%;
     background-color: rgba(224, 205, 154, 1);
     position: absolute;
     left: 0;
@@ -49,6 +53,8 @@ body {
 
 .floor{
     width: 30%;
+    background-image: url('../images/background/floor.png');
+    background-size: 100%;
     /* height: 500vh; */
     background-color: gray;
     margin: 0 auto;
