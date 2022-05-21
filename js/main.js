@@ -343,13 +343,7 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        while (window.pageYOffset != 0){
-            console.log('scroll to');
-            window.scrollTo(0,0); 
-        }
-        window.location.reload();
-        console.log('reload');
-        
+        restart();
         // window.scrollTo(0,0);
         // if (window.yOffset==0){
         //     window.location.reload();
@@ -363,11 +357,15 @@
 
     async function restart(){ // async을 지정해주면 Promise를 리턴하는 함수로 만들어준다.
         window.location.reload();
-        await Promise.resolve(scrollTo(0,0)); // 프라미스 객체의 then결과를 바로 받는다.
+        await Promise.resolve(settotop()); // 프라미스 객체의 then결과를 바로 받는다.
         return 0;
         }
         
-
+    function settotop() {
+        while (window.pageYOffset != 0){
+            window.scrollTo(0,0); 
+        }
+    }
 
     //gamestate == before_playing : scrollloop... (안전빵)
     //gamestate == touching : scrollloop... 
