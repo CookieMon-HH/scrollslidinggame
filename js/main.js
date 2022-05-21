@@ -343,7 +343,13 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        restart();
+        while (window.pageYOffset != 0){
+            console.log('scroll to');
+            window.scrollTo(0,0); 
+        }
+        window.location.reload();
+        console.log('reload');
+        
         // window.scrollTo(0,0);
         // if (window.yOffset==0){
         //     window.location.reload();
