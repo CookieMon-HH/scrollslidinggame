@@ -264,6 +264,25 @@
         playAnimation();
     }
 
+    function checkgrade(distance){
+        let grade = ''
+        if(distance < 50){
+            grade = 'Cheer up'
+        }else if ( 50 <= distance && distance < 70 ){
+            grade = 'Good!';
+        }else if ( 70 <= distance && distance < 90 ){
+            grade = 'Nice!';
+        }else if ( 90 <= distance && distance < 99.5 ){
+            grade = 'Great!';
+        }else if ( 99.5 <= distance && distance < 100 ){
+            grade = 'Awsome!';
+        }else if ( 100 <= distance ){
+            grade = 'Failed';
+        }
+
+        return grade 
+    }
+
 
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset;
@@ -300,9 +319,13 @@
         let currentSlidingYoffset = window.pageYOffset;
         if(gamestate == 'sliding'){
             if(slidingYoffset == currentSlidingYoffset){
+                let distance = clacdistance();
+                let grade = checkgrade(distance);
+                console.log(grade);
                 gamestate = 'end'
                 document.getElementById('endmodal').style.display = 'flex';
-                document.getElementById('result').innerHTML= `your score is ${clacdistance()}`;
+                document.getElementById('result').innerHTML= `your score is ${distance}`;
+                document.getElementById('grade').innerHTML= `${grade}`;
 
             }else {
                 slidingYoffset = currentSlidingYoffset ;
@@ -311,7 +334,7 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        restart();
+        // restart();
         window.scrollTo(0,0);
         // window.scrollTo(0,0);
         // if (window.yOffset==0){
