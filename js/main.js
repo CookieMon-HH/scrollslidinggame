@@ -267,7 +267,7 @@
 
     window.addEventListener('scroll', () => {
         yOffset = window.pageYOffset;
-        console.log(yOffset);
+        // console.log(yOffset);
         scrollLoop()
         // isScrolling();
         // console.log(currentScene);
@@ -301,7 +301,6 @@
         if(gamestate == 'sliding'){
             if(slidingYoffset == currentSlidingYoffset){
                 gamestate = 'end'
-                document.getElementById('console').innerHTML= `console : ${gamestate}`;
                 document.getElementById('endmodal').style.display = 'flex';
                 document.getElementById('result').innerHTML= `your score is ${clacdistance()}`;
 
@@ -312,9 +311,21 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        window.location.reload();
-        window.scrollTo(0,0);
+        restart();
+        // window.scrollTo(0,0);
+        // if (window.yOffset==0){
+        //     window.location.reload();
+        // }
     })
+
+
+    async function restart(){ // async을 지정해주면 Promise를 리턴하는 함수로 만들어준다.
+        window.scrollTo(0,0);
+        await Promise.resolve(window.location.reload()); // 프라미스 객체의 then결과를 바로 받는다.
+        return 0;
+        }
+        
+
 
     //gamestate == before_playing : scrollloop... (안전빵)
     //gamestate == touching : scrollloop... 

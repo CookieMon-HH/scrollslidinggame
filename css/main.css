@@ -41,6 +41,29 @@ body {
     z-index: 1;
 }
 
+.beach_left{
+    width: 35%;
+    height: 10vh;
+    background-image: url('../images/background/beach_left.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    top: 15vh;
+    z-index: 1;
+}
+
+
+.beach_right{
+    width: 35%;
+    height: 10vh;
+    background-image: url('../images/background/beach_right.png');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 65%;
+    top: 15vh;
+    z-index: 1;
+}
+
 .slider{
     width: 20%;
     height: 10vh;
