@@ -320,11 +320,20 @@
         if(gamestate == 'sliding'){
             if(slidingYoffset == currentSlidingYoffset){
                 let distance = clacdistance();
-                let grade = checkgrade(distance);
+                let score = 0;
+                let grade = '';
+
+                if (distance < 100){
+                    score = distance;
+                    grade = checkgrade(distance);
+                }else if (distance >= 100) {
+                    score = 0;
+                    grade = checkgrade(distance);
+                }
                 console.log(grade);
                 gamestate = 'end'
                 document.getElementById('endmodal').style.display = 'flex';
-                document.getElementById('result').innerHTML= `your score is ${distance}`;
+                document.getElementById('result').innerHTML= `your score is ${score}`;
                 document.getElementById('grade').innerHTML= `${grade}`;
 
             }else {
@@ -340,6 +349,10 @@
         // if (window.yOffset==0){
         //     window.location.reload();
         // }
+    })
+
+    document.getElementById('reset').addEventListener('click',()=> {
+        window.location.reload();
     })
 
 
