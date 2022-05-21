@@ -312,6 +312,7 @@
 
     document.getElementById('restart').addEventListener('click', ()=> {
         restart();
+        window.scrollTo(0,0);
         // window.scrollTo(0,0);
         // if (window.yOffset==0){
         //     window.location.reload();
