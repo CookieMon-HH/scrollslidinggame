@@ -343,7 +343,9 @@
     },500);
 
     document.getElementById('restart').addEventListener('click', ()=> {
-        restart();
+        // restart();
+        history.scrollRestoration = "manual";
+        window.location.reload();
         // window.scrollTo(0,0);
         // if (window.yOffset==0){
         //     window.location.reload();
@@ -394,8 +396,7 @@
     // https://gahyun-web-diary.tistory.com/129
 
 
-    
-    window.addEventListener('load', setLayout);
+    window.addEventListener('load', setLayout );
     window.addEventListener('resize', setLayout);
 
 })();
